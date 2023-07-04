@@ -45,7 +45,10 @@ public class WebSeriesService {
         totalRating+=ws.getRating();
         count++;
         prodHouse.setRatings(((double)totalRating/count));
-        productionHouseRepository.save(prodHouse);
+        ProductionHouse prodResp=productionHouseRepository.save(prodHouse);
+        for(WebSeries webSer: prodResp.getWebSeriesList()){
+            if(webSer.getSeriesName().equalsIgnoreCase(ws.getSeriesName()))return webSer.getId();
+        }
         return ws.getId();
     }
 
